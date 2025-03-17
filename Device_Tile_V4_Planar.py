@@ -28,11 +28,11 @@ def APD_Tile_V2(extra_length, Quadrant, i,j, show_name, show_frame):
         nd.add_layer(name='Metal Rings', layer=3, accuracy=0.001)
         nd.add_layer(name='Metal Ring Openings', layer=33, accuracy=0.001)
         nd.add_layer(name='N Metal', layer=5, accuracy=0.001)
-        nd.add_layer(name='Au plating ', layer=6, accuracy=0.001)
+        nd.add_layer(name='Au plating ', layer=3, accuracy=0.001)
         nd.add_layer(name='Open Corners', layer=23, accuracy=0.001)
         nd.add_layer(name='Slice_OpeningMetal_Ring_Lift_Off', layer=223, accuracy=0.001)
         nd.add_layer(name='Metal Patches', layer=555, accuracy=0.001)
-        nd.add_layer(name='SiO Cover', layer=123, accuracy=0.001)
+        nd.add_layer(name='SiO Cover', layer=2, accuracy=0.001)
         nd.add_layer(name='lay22', layer=22, accuracy=0.001) # this is the layer to remove for the N-type contacts later
 
         frame_length = 2000+556.29393
@@ -76,14 +76,14 @@ def APD_Tile_V2(extra_length, Quadrant, i,j, show_name, show_frame):
             #for radius in APD_radii:
             while k<len(APD_radii):
                 APD_RF_length = [80 + 95.39, 80 + 89.7, 80 + 75, 80 + 61, 80 + 46 + 0.88]
-                APD_Signal_length = [800+293.12-50,800+273.12-50,800+223.12,800+173.12-50,800+123.12-50]
+                APD_Signal_length = [800+293.12-50,800+273.12-50,800+223.12-50,800+173.12-50,800+123.12-50]
 
                 APD_Signal_length = APD_Signal_length[k]
                 APD_RF_length = [0, 0, 0, 0, 0]
                 with nd.Cell(name = "Devices") as Devices:
 
-                    MESA = nd.Polygon(layer='MESA etch', points=geom.circle(radius=APD_radii[k], N=700)).put(0, 0)
-                    MESA = nd.Polygon(layer=111, points=geom.ring(radius=APD_radii[k]+10, width = 10, N=700)).put(0, 0)
+                    # MESA = nd.Polygon(layer='MESA etch', points=geom.circle(radius=APD_radii[k], N=700)).put(0, 0)
+                    Planar = nd.Polygon(layer=222, points=geom.ring(radius=APD_radii[k]+10, width = 10, N=700)).put(0, 0)
 
                     P_type_Ring = nd.Polygon(layer='Metal Rings', points=geom.ring(radius=APD_radii[k]+P_type_ring_distance, width=P_type_ring_width, N=700)).put(0, 0)
                     P_type_Ring_opening = nd.Polygon(layer='Metal Ring Openings', points=geom.ring(radius=APD_radii[k]+P_type_ring_distance - (P_type_ring_width-P_type_ring_SiO_opening_width)/2, width=P_type_ring_SiO_opening_width, N=700)).put(0, 0)
@@ -142,8 +142,8 @@ def APD_Tile_V2(extra_length, Quadrant, i,j, show_name, show_frame):
                 APD_RF_length = [0, 0, 0, 0, 0]
                 with nd.Cell(name = "Devices") as Devices:
 
-                    MESA = nd.Polygon(layer='MESA etch', points=geom.circle(radius=APD_radii[k], N=700)).put(0, 0)
-                    MESA_planar= nd.Polygon(layer=111, points=geom.ring(radius=APD_radii[k]+10, width = 10, N=700)).put(0, 0)
+                    # MESA = nd.Polygon(layer='MESA etch', points=geom.circle(radius=APD_radii[k], N=700)).put(0, 0)
+                    Planar= nd.Polygon(layer=222, points=geom.ring(radius=APD_radii[k]+10, width = 10, N=700)).put(0, 0)
 
                     P_type_Ring_opening = nd.Polygon(layer='Metal Ring Openings', points=geom.ring(radius=APD_radii[k]+P_type_ring_distance - (P_type_ring_width-P_type_ring_SiO_opening_width)/2, width=P_type_ring_SiO_opening_width, N=700)).put(0, 0)
                     P_type_Ring = nd.Polygon(layer='Metal Rings',
@@ -325,4 +325,4 @@ nd.put_stub()
 
 APD_Tile_V2(0, Q1, i,j, True, True).put()
 
-nd.export_gds(filename=r'Device Tile V3 For N Substrate')
+nd.export_gds(filename=r'Planar APD n-sub')
