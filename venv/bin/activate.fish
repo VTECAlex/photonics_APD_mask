@@ -33,7 +33,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV /home/alexander/Documents/Workplace_VTEC/photonics_APD_mask/venv
+set -gx VIRTUAL_ENV /home/alex/Documents/photonics_APD_mask/venv
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/"bin $PATH

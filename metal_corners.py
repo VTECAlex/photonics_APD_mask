@@ -23,15 +23,15 @@ def Metal_corners(layer,Lasers_length=1,k=0,posx=0,posy=0,i=0):
 
 
 
-# def Metal_corners_hole(layer):
+def Metal_corners_hole(layer):
 
-#     with nd.Cell(name="Metal Corner Holes") as Metal_Corners_Holes:
-#         nd.strt(length=200, width=25, layer=layer).put(0,-25/2)
-#         nd.strt(length=175, width=50, layer=layer).put(25,25)
-#         nd.strt(length=125, width=50, layer=layer).put(25+50,25+50)
-#         nd.strt(length=75, width=50, layer=layer).put(25+50+50,25+50+50)
-#         nd.strt(length=25, width=25, layer=layer).put(25+50+50+50,50+25+50+50-25/2)
-#     return Metal_Corners_Holes
+    with nd.Cell(name="Metal Corner Holes") as Metal_Corners_Holes:
+        nd.strt(length=200, width=25, layer=layer).put(0,-25/2)
+        nd.strt(length=175, width=50, layer=layer).put(25,25)
+        nd.strt(length=125, width=50, layer=layer).put(25+50,25+50)
+        nd.strt(length=75, width=50, layer=layer).put(25+50+50,25+50+50)
+        nd.strt(length=25, width=25, layer=layer).put(25+50+50+50,50+25+50+50-25/2)
+    return Metal_Corners_Holes
 
 
 # Metal_corners("Centered_AM_Layer",200,2,0,0,0).put()

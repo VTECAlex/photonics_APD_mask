@@ -27,6 +27,7 @@ import Ruler_at_the_bottom
 from half_lean import leanSSS
 from lean import leanS
 from collections import defaultdict
+import pandas as pd
 
 import lean
 
@@ -237,7 +238,7 @@ step_x = tile_full_length_x_dir_PCM
 step_y = tile_full_length_y_dir_PCM+200
         
 ###########################################################
-
+names_and_coordinates_list = []
 
 for j in range(10):
     previous_position_for_Q_1_4 = pos1x_Q1 # previous positions for 1 and 4 quadrants Tile
@@ -258,10 +259,22 @@ for j in range(10):
             Q4 = 4
             if j!=3:
                 Device_Tile_V3_N_Sub.APD_Tile_V2(extra_length, Q1, i, j, True, True).put(previous_position_for_Q_1_4 + extra_length/2 -15-328.147, pos1y_Q1 + j*step_y -1830 )
+                names_and_coordinates_list.append(["R{}C{}Q{}".format(Q1, i, j),
+                                                    previous_position_for_Q_1_4 + extra_length / 2 - 15 - 328.147 + 242.3 + 50,
+                                                    pos1y_Q1 + j * step_y - 1830 + 1780 + 50,j+1,i+1, Q1])
                 Device_Tile_V3_N_Sub.APD_Tile_V2(extra_length, Q2, i, j, True, True).put(-previous_position_for_Q_2_3 - extra_length / 2 - 100 - 15 - 328.147, pos1y_Q1 + j * step_y - 1830)
+                names_and_coordinates_list.append(["R{}C{}Q{}".format(Q2, i, j),
+                                                    previous_position_for_Q_1_4 + extra_length / 2 - 15 - 328.147 + 242.3 + 50,
+                                                    pos1y_Q1 + j * step_y - 1830 + 1780 + 50,j+1,i+1, Q2])
                 if j<9:
                     Device_Tile_V3_N_Sub.APD_Tile_V2(extra_length, Q4, i, j, True, True).put(previous_position_for_Q_1_4 + extra_length/2 -15-328.147, -pos1y_Q1 - j*step_y - 1830)
+                    names_and_coordinates_list.append(["R{}C{}Q{}".format(Q4, i, j),
+                                                    previous_position_for_Q_1_4 + extra_length / 2 - 15 - 328.147 + 242.3 + 50,
+                                                    pos1y_Q1 + j * step_y - 1830 + 1780 + 50,j+1,i+1, Q4])
                     Device_Tile_V3_N_Sub.APD_Tile_V2(extra_length, Q3, i, j, True, True).put(-previous_position_for_Q_2_3  - extra_length/2 -100 -15-328.147, -pos1y_Q1 - j*step_y - 1830)
+                    names_and_coordinates_list.append(["R{}C{}Q{}".format(Q3, i, j),
+                                                    previous_position_for_Q_1_4 + extra_length / 2 - 15 - 328.147 + 242.3 + 50,
+                                                    pos1y_Q1 + j * step_y - 1830 + 1780 + 50,j+1,i+1, Q3])
                 previous_position_for_Q_1_4 = previous_position_for_Q_1_4 + tile_full_length_x_dir
                 previous_position_for_Q_2_3 = previous_position_for_Q_2_3 + tile_full_length_x_dir
         if (x_directio_length_of_all_tiles_PCM)**2+(y_directio_length_of_all_tiles)**2< (radius_of_wafer)**2:
@@ -279,6 +292,7 @@ for j in range(10):
 
 
         Total_per_Quadrant  = Total_per_Quadrant +1
+f = pd.DataFrame(names_and_coordinates_list, columns=["Names","X Coordinate", "Y Coordinate", "Row","Column","Quadrant"])
 #SiO covers for the rulers 
 nd.strt(length =75350 + 12655*2, width =2520+40 , layer =2 ).put(-75350/2+175-12655,0)
 nd.strt(width =75350+155-2472.4+ 12655*2, length =2520+20+20 , layer =2 ).put(-2520/2-10-10,155/2+2482.4-2472.4/2-462.02)
