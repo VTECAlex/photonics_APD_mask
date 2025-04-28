@@ -24,6 +24,7 @@ def APD_Tile_V2(extra_length, Quadrant, i,j, show_name, show_frame):
 
     with nd.Cell(name = 'Device Cell V3') as Device_cell_V3:
         nd.add_layer(name='MESA etch', layer=1, accuracy=0.001)
+        nd.add_layer(name='Planar Ring', layer=222, accuracy=0.001)
         nd.add_layer(name='SiO', layer=2, accuracy=0.001)
         nd.add_layer(name='Metal Rings', layer=3, accuracy=0.001)
         nd.add_layer(name='Metal Ring Openings', layer=33, accuracy=0.001)
@@ -82,8 +83,8 @@ def APD_Tile_V2(extra_length, Quadrant, i,j, show_name, show_frame):
                 APD_RF_length = [0, 0, 0, 0, 0]
                 with nd.Cell(name = "Devices") as Devices:
 
-                    # MESA = nd.Polygon(layer='MESA etch', points=geom.circle(radius=APD_radii[k], N=700)).put(0, 0)
-                    Planar = nd.Polygon(layer=222, points=geom.ring(radius=APD_radii[k]+10, width = 10, N=700)).put(0, 0)
+                    MESA = nd.Polygon(layer='MESA etch', points=geom.circle(radius=APD_radii[k], N=700)).put(0, 0)
+                    Planar = nd.Polygon(layer='Planar Ring', points=geom.ring(radius=APD_radii[k]+10, width = 10, N=700)).put(0, 0)
 
                     P_type_Ring = nd.Polygon(layer='Metal Rings', points=geom.ring(radius=APD_radii[k]+P_type_ring_distance, width=P_type_ring_width, N=700)).put(0, 0)
                     P_type_Ring_opening = nd.Polygon(layer='Metal Ring Openings', points=geom.ring(radius=APD_radii[k]+P_type_ring_distance - (P_type_ring_width-P_type_ring_SiO_opening_width)/2, width=P_type_ring_SiO_opening_width, N=700)).put(0, 0)
@@ -142,8 +143,8 @@ def APD_Tile_V2(extra_length, Quadrant, i,j, show_name, show_frame):
                 APD_RF_length = [0, 0, 0, 0, 0]
                 with nd.Cell(name = "Devices") as Devices:
 
-                    # MESA = nd.Polygon(layer='MESA etch', points=geom.circle(radius=APD_radii[k], N=700)).put(0, 0)
-                    Planar= nd.Polygon(layer=222, points=geom.ring(radius=APD_radii[k]+10, width = 10, N=700)).put(0, 0)
+                    MESA = nd.Polygon(layer='MESA etch', points=geom.circle(radius=APD_radii[k], N=700)).put(0, 0)
+                    Planar= nd.Polygon(layer='Planar Ring', points=geom.ring(radius=APD_radii[k]+10, width = 10, N=700)).put(0, 0)
 
                     P_type_Ring_opening = nd.Polygon(layer='Metal Ring Openings', points=geom.ring(radius=APD_radii[k]+P_type_ring_distance - (P_type_ring_width-P_type_ring_SiO_opening_width)/2, width=P_type_ring_SiO_opening_width, N=700)).put(0, 0)
                     P_type_Ring = nd.Polygon(layer='Metal Rings',
@@ -173,19 +174,19 @@ def APD_Tile_V2(extra_length, Quadrant, i,j, show_name, show_frame):
             VTEC_Device_Name = nd.text(text="R{}C{}Q{}".format(Quadrant,i,j), height= 200).put(-685+150+50+667,100+ 1000+700-2500+90, 0)
 
         if show_name == True:
-            top_left = metal_corners_APD.Metal_corners('Metal Rings').put(-1000 + 115-25, 4279.86 + 0.14, -90)
-            top_left_hole = metal_corners_APD.Metal_corners_hole('Open Corners').put(-1000 + 115 + 200 - 50-200+10,
+            top_left = metal_corners_APD.Metal_corners('Metal Rings', Quadrant, i,j,"tl").put(-1000 + 115-25, 4279.86 + 0.14, -90)
+            top_left_hole = metal_corners_APD.Metal_corners_hole('Open Corners', Quadrant, i,j,"tlh").put(-1000 + 115 + 200 - 50-200+10,
                                                                             4279.86 + 0.14 - 200+25-10, 0)
 
-            top_right = metal_corners_APD.Metal_corners('Metal Rings').put(1000 + 65+556.294, +4230+25, 180)
-            top_right_hole = metal_corners_APD.Metal_corners_hole('Open Corners').put(1000 + 65 - 200+556.294+25-10, +4230 - 150+200-10, -90)
+            top_right = metal_corners_APD.Metal_corners('Metal Rings', Quadrant, i,j,"tr").put(1000 + 65+556.294, +4230+25, 180)
+            top_right_hole = metal_corners_APD.Metal_corners_hole('Open Corners', Quadrant, i,j,"trh").put(1000 + 65 - 200+556.294+25-10, +4230 - 150+200-10, -90)
 
-            bot_right = metal_corners_APD.Metal_corners('Metal Rings').put(-1000 + 2015+556.294+25, -1000 + 430 - 50, 90)
-            bot_right_hole = metal_corners_APD.Metal_corners_hole('Open Corners').put(-1000 + 2015 - 200 + 50+556.294+200-10,
+            bot_right = metal_corners_APD.Metal_corners('Metal Rings', Quadrant, i,j,"br").put(-1000 + 2015+556.294+25, -1000 + 430 - 50, 90)
+            bot_right_hole = metal_corners_APD.Metal_corners_hole('Open Corners', Quadrant, i,j,"brh").put(-1000 + 2015 - 200 + 50+556.294+200-10,
                                                                              -1000 + 430 - 50 + 200-25+10, -180)
 
-            bot_left = metal_corners_APD.Metal_corners('Metal Rings').put(-1000 + 65, 430 - 1000-25)
-            bot_left_hole = metal_corners_APD.Metal_corners_hole('Open Corners').put(-1000 + 65 + 200-25+10, 430 - 1000 + 150-200+10, -270)
+            bot_left = metal_corners_APD.Metal_corners('Metal Rings', Quadrant, i,j,"bl").put(-1000 + 65, 430 - 1000-25)
+            bot_left_hole = metal_corners_APD.Metal_corners_hole('Open Corners', Quadrant, i,j,"blh").put(-1000 + 65 + 200-25+10, 430 - 1000 + 150-200+10, -270)
 
 
         Layer_Difference('Metal Ring Openings', 'SiO', Device_cell_V3)

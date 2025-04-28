@@ -32,6 +32,8 @@ def Tile_PCMs_all(extra_length, Quadrant, i,j):
     row_ID = j+1
     column_ID = i +1
     nd.add_layer(name='MESA etch', layer=1, accuracy=0.001)
+    nd.add_layer(name='Planar Ring', layer=222, accuracy=0.001)
+
     nd.add_layer(name='SiO', layer=2, accuracy=0.001)
     nd.add_layer(name='Metal Rings', layer=3, accuracy=0.001)
     nd.add_layer(name='Metal Ring Openings', layer=33, accuracy=0.001)
@@ -66,7 +68,7 @@ def Tile_PCMs_all(extra_length, Quadrant, i,j):
             cross_width = 30
             cross_length  = cross_width*2
             dist = 20
-            cross_slayer = 'MESA etch'
+            cross_slayer = 'Planar Ring'
             cross_slayer1 = 'SiO'
             c_ll = cross_slayer
             c_ll1 = cross_slayer1
@@ -196,7 +198,7 @@ def Tile_PCMs_all(extra_length, Quadrant, i,j):
                 nd.strt(length=cross_length, width=cross_width, layer=c_ll1).put(5 * cross_length / 2 + 3 * dist, 0)
                 nd.strt(length=cross_length, width=cross_width, layer=c_ll1).put(
                     -(3 * (3 / 2) * cross_length + dist) + 20, 0)
-        nd.text(text = "1-2", height=200, layer = 'MESA etch').put(-700-180-65,1800+300)
+        nd.text(text = "1-2", height=200, layer = 'Planar Ring').put(-700-180-65,1800+300)
         nd.text(text = "1-2", height=200, layer = 'SiO').put(-700-180-65,1800+300)
         Left_Cross_Stn.put(-700-180,1500+300)
         nd.text(text = "2-3", height=200, layer = 'SiO').put(-65,1800+300)
@@ -269,7 +271,7 @@ def Tile_PCMs_all(extra_length, Quadrant, i,j):
                 gletter_height = 3
                 gdist_combs = 10-180
                 
-                vernier_1_layer_top = 'MESA etch'
+                vernier_1_layer_top = 'Planar Ring'
                 v1lt = vernier_1_layer_top
                 
                 vernier_1_layer_bot = 'SiO'
@@ -333,7 +335,7 @@ def Tile_PCMs_all(extra_length, Quadrant, i,j):
                 gletter_height = 3
                 gdist_combs = 10-180
                 
-                vernier_1_layer_top = 'MESA etch'
+                vernier_1_layer_top = 'Planar Ring'
                 v1lt = vernier_1_layer_top
                 
                 vernier_1_layer_bot = 'SiO'
@@ -755,7 +757,7 @@ def Tile_PCMs_all(extra_length, Quadrant, i,j):
             Horizaontal_Vernier.put(0, 0)
             Vertical_Vernier.put(+600, -600, -90)
 
-        nd.text(text = "1-2", height=200, layer = 'MESA etch').put(-700-180-65-200,1000+200)
+        nd.text(text = "1-2", height=200, layer = 'Planar Ring').put(-700-180-65-200,1000+200)
         nd.text(text = "1-2", height=200, layer = 'SiO').put(-700-180-65-200,1000+200)
         Left_Vernier_Pair.put(-(400+150)-400-200,1000+200)
         nd.text(text = "2-3", height=200, layer = 'SiO').put(-65+86+(422-86)/2-(377-170)/2,1000+200)
@@ -780,7 +782,7 @@ def Tile_PCMs_all(extra_length, Quadrant, i,j):
                 step_lines = 370
 
 
-                layer_names = ['MESA etch', 'SiO', 'Metal Rings', 'Metal Ring Openings', 'N Metal' , 'Au plating ', 'lay22']
+                layer_names = ['Planar Ring', 'SiO', 'Metal Rings', 'Metal Ring Openings', 'N Metal' , 'Au plating ', 'lay22']
                 if i==0 or i==1 or i==2:
                     nd.strt(length = line_length, width = 5, layer =layer_names[i]).put(0,-step_lines*i)
                     nd.text(text = '{}'.format(i+1), layer=layer_names[i], height=200).put(-150,-100 -step_lines*i)
@@ -900,7 +902,7 @@ def Tile_PCMs_all(extra_length, Quadrant, i,j):
         bot_left_hole = metal_corners.Metal_corners_hole('Open Corners').put(-1000 + 65 + 200-865-25, 430 - 1000 + 150-1830-200, 90)
 
         Layer_Difference('Open Corners', 'SiO', Single_Tile)
-        Dark_Current_PCM_V3.PCM_Dark_Current(extra_length=0, Quadrant=Quadrant, i=1, j=1, show_name= False, show_frame = False).put(3850-15,-1830)
+        Dark_Current_PCM_V3.PCM_Dark_Current_Planar(extra_length=0, Quadrant=Quadrant, i=1, j=1, show_name= False, show_frame = False).put(3850-15,-1830)
         
     return Single_Tile
 
@@ -962,13 +964,12 @@ def Layer_Difference(Remove_layer,From_layer,cell_name):
 
 
 
+if __name__ == "__main__":
 
-
-i = 1 
-j = 3
-Q1 = 1
-Tile_PCMs_all(0, Q1, i,j).put()
-
+    i = 1 
+    j = 3
+    Q1 = 1
+    Tile_PCMs_all(0, Q1, i,j).put()
 
 
 # =============================================================================
@@ -976,11 +977,4 @@ Tile_PCMs_all(0, Q1, i,j).put()
 # nd.strt(width  = 100000 , length = 0.1, layer = 1).put(0,0)
 # =============================================================================
 
-
-
-
-
-
-
-
-nd.export_gds(filename=r'Tile PCMS V2 N Substrate')
+    nd.export_gds(filename=r'Mask_GDS/Tile PCMS V2 N Substrate') 
